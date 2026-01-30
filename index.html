@@ -144,6 +144,7 @@
             position: relative;
             background: var(--dark);
             overflow: hidden;
+            z-index: 0;
         }
 
         .hero-bg {
@@ -252,6 +253,8 @@
         section {
             padding: 150px 60px;
             position: relative;
+            z-index: 1;
+            background: var(--light);
         }
 
         .section-label {
@@ -286,6 +289,8 @@
             gap: 100px;
             align-items: center;
             min-height: 100vh;
+            background: var(--light);
+            z-index: 2;
         }
 
         .about-image {
@@ -352,6 +357,7 @@
         .services {
             background: var(--dark);
             color: white;
+            z-index: 2;
         }
 
         .services .section-title {
@@ -439,6 +445,8 @@
             padding: 60px 0;
             background: var(--gold);
             overflow: hidden;
+            position: relative;
+            z-index: 2;
         }
 
         .marquee-content {
@@ -520,6 +528,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 100px;
+            z-index: 2;
         }
 
         .contact .section-title {
@@ -653,6 +662,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         footer p {
@@ -940,11 +951,12 @@
         });
     });
 
-    // Parallax effect on hero
+    // Parallax effect on hero (limited to hero viewport)
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
+        const heroSection = document.querySelector('.hero');
         const hero = document.querySelector('.hero-bg');
-        if (hero) {
+        if (hero && scrolled < window.innerHeight) {
             hero.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
         }
     });
