@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundació Ave Maria de Sitges</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A227;
+            --gold-light: #E8D5A3;
+            --dark: #1a1a1a;
+            --dark-soft: #2d2d2d;
+            --light: #fafafa;
+            --gray: #888;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Cursor custom */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s var(--transition), opacity 0.15s;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.hover {
+            transform: translate(-50%, -50%) scale(2);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s var(--transition), visibility 0.8s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 5vw, 48px);
+            color: var(--gold);
+            opacity: 0;
+            animation: fadeInUp 1s var(--transition) forwards;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--dark);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920') center/cover;
+            opacity: 0.4;
+            transform: scale(1.1);
+            transition: transform 8s var(--transition);
+        }
+
+        .hero:hover .hero-bg {
+            transform: scale(1);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 8vw, 100px);
+            font-weight: 400;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .hero-tagline {
+            font-size: clamp(16px, 2vw, 20px);
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 50px;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-cta:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollLine 2s infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            50.1% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* Sections */
+        section {
+            padding: 150px 60px;
+            position: relative;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 400;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .section-text {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 600px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* About */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .about-image {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 1px solid var(--gold);
+            z-index: -1;
+            transition: all 0.4s var(--transition);
+        }
+
+        .about-image:hover::after {
+            top: 30px;
+            left: 30px;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        /* Services */
+        .services {
+            background: var(--dark);
+            color: white;
+        }
+
+        .services .section-title {
+            color: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .service-card {
+            padding: 50px 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transform: translateY(100%);
+            transition: transform 0.5s var(--transition);
+            z-index: 0;
+        }
+
+        .service-card:hover::before {
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            border-color: var(--gold);
+        }
+
+        .service-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: var(--gold);
+            opacity: 0.3;
+            margin-bottom: 30px;
+            transition: color 0.5s var(--transition);
+        }
+
+        .service-card:hover .service-number {
+            color: var(--dark);
+        }
+
+        .service-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            transition: color 0.5s var(--transition);
+        }
+
+        .service-card:hover .service-title {
+            color: var(--dark);
+        }
+
+        .service-text {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+            transition: color 0.5s var(--transition);
+        }
+
+        .service-card:hover .service-text {
+            color: var(--dark-soft);
+        }
+
+        /* Marquee */
+        .marquee {
+            padding: 60px 0;
+            background: var(--gold);
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 8vw, 80px);
+            color: var(--dark);
+            white-space: nowrap;
+            padding: 0 50px;
+        }
+
+        .marquee-item span {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--dark);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Collaborate */
+        .collaborate {
+            text-align: center;
+            padding: 200px 60px;
+        }
+
+        .collaborate .section-title {
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .collab-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 60px;
+        }
+
+        .collab-btn {
+            padding: 20px 40px;
+            border: 1px solid var(--dark);
+            background: transparent;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s var(--transition);
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .collab-btn:hover {
+            background: var(--dark);
+            color: white;
+        }
+
+        .collab-btn.primary {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+
+        .collab-btn.primary:hover {
+            background: var(--dark);
+            border-color: var(--dark);
+            color: var(--gold);
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--dark);
+            color: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact-info {
+            margin-top: 60px;
+        }
+
+        .contact-item {
+            margin-bottom: 40px;
+        }
+
+        .contact-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .contact-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: white;
+        }
+
+        .contact-value a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-value a:hover {
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Form */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 20px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            font-size: 14px;
+            color: var(--gray);
+            pointer-events: none;
+            transition: all 0.3s var(--transition);
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -10px;
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-submit {
+            align-self: flex-start;
+            padding: 20px 50px;
+            background: var(--gold);
+            border: none;
+            color: var(--dark);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s var(--transition);
+        }
+
+        .form-submit:hover {
+            background: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 40px 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer p {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav { padding: 20px 30px; }
+            section { padding: 100px 30px; }
+            .about { grid-template-columns: 1fr; gap: 60px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .contact { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-title { font-size: 40px; }
+            .stats { flex-direction: column; gap: 30px; }
+            .collab-options { flex-direction: column; align-items: center; }
+            footer { flex-direction: column; gap: 20px; text-align: center; }
+            .cursor { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor"></div>
+
+<!-- Loader -->
+<div class="loader">
+    <span class="loader-text">Fundació Ave Maria</span>
+</div>
+
+<!-- Navigation -->
+<nav>
+    <a href="#" class="logo">Ave Maria</a>
+    <ul class="nav-links">
+        <li><a href="#about">Fundació</a></li>
+        <li><a href="#services">Serveis</a></li>
+        <li><a href="#collaborate">Col·labora</a></li>
+        <li><a href="#contact">Contacta</a></li>
+    </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <span class="hero-subtitle">Des de 1987 a Sitges</span>
+        <h1 class="hero-title">Cuidem amb passió.<br>Donem suport amb compromís.</h1>
+        <p class="hero-tagline">Al servei de les persones amb diversitat funcional, oferint acompanyament i atenció centrada en la persona.</p>
+        <a href="#collaborate" class="hero-cta">Col·labora amb nosaltres</a>
+    </div>
+    <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about">
+    <div class="about-content">
+        <span class="section-label reveal">Qui som</span>
+        <h2 class="section-title reveal">Una fundació compromesa amb les persones</h2>
+        <p class="section-text reveal">La Fundació Ave Maria és una entitat sense ànim de lucre que treballa per millorar la qualitat de vida de les persones amb diversitat funcional, oferint suports personalitzats i acompanyament al llarg de totes les etapes de la seva vida.</p>
+        <p class="section-text reveal" style="margin-top:20px;">Treballem des d'un model d'atenció centrada en la persona, respectant la seva identitat, decisions i ritme.</p>
+
+        <div class="stats reveal">
+            <div class="stat">
+                <div class="stat-number">+35</div>
+                <div class="stat-label">Anys d'experiència</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">+800</div>
+                <div class="stat-label">Persones ateses</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">3.000</div>
+                <div class="stat-label">m² de campus</div>
+            </div>
+        </div>
+    </div>
+    <div class="about-image reveal">
+        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800" alt="Fundació Ave Maria">
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="services">
+    <span class="section-label reveal">Els nostres serveis</span>
+    <h2 class="section-title reveal">Acompanyament integral<br>al llarg de la vida</h2>
+
+    <div class="services-grid">
+        <div class="service-card reveal">
+            <div class="service-number">01</div>
+            <h3 class="service-title">Campus Residencial</h3>
+            <p class="service-text">Més de 3.000 m² a Sitges amb atenció integral i continuada 24h, en un entorn segur, accessible i adaptat.</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-number">02</div>
+            <h3 class="service-title">Llars amb Suport</h3>
+            <p class="service-text">Xarxa de vivendes integrades a la comunitat per a persones adultes amb discapacitat intel·lectual.</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-number">03</div>
+            <h3 class="service-title">Atenció Domiciliària</h3>
+            <p class="service-text">Suport a la llar de la persona amb activitats de vida diària i acompanyament personal.</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-number">04</div>
+            <h3 class="service-title">Inclusió Laboral</h3>
+            <p class="service-text">Programes d'orientació, formació i acompanyament per a la inserció laboral en entorns ordinaris.</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-number">05</div>
+            <h3 class="service-title">Formació</h3>
+            <p class="service-text">Programes formatius per a persones amb diversitat funcional, professionals i famílies.</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-number">06</div>
+            <h3 class="service-title">Investigació i Robòtica</h3>
+            <p class="service-text">Innovació i tecnologia al servei de l'autonomia, en col·laboració amb universitats.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee">
+    <div class="marquee-content">
+        <span class="marquee-item">Respecte <span>·</span> Compromís <span>·</span> Inclusió <span>·</span> Professionalitat <span>·</span> Transparència <span>·</span></span>
+        <span class="marquee-item">Respecte <span>·</span> Compromís <span>·</span> Inclusió <span>·</span> Professionalitat <span>·</span> Transparència <span>·</span></span>
+    </div>
+</div>
+
+<!-- Collaborate -->
+<section id="collaborate" class="collaborate">
+    <span class="section-label reveal">Col·labora</span>
+    <h2 class="section-title reveal">Junts podem fer<br>la diferència</h2>
+    <p class="section-text reveal" style="max-width:600px;margin:0 auto;">Cada aportació té un impacte real en la vida de les persones amb diversitat funcional. Hi ha moltes maneres de col·laborar.</p>
+
+    <div class="collab-options reveal">
+        <a href="#contact" class="collab-btn primary">Fer un donatiu</a>
+        <a href="#contact" class="collab-btn">Voluntariat</a>
+        <a href="#contact" class="collab-btn">Empreses i RSC</a>
+        <a href="#contact" class="collab-btn">Mecenatge</a>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact">
+    <div>
+        <span class="section-label reveal">Contacta</span>
+        <h2 class="section-title reveal">Parlem?</h2>
+
+        <div class="contact-info">
+            <div class="contact-item reveal">
+                <div class="contact-label">Adreça</div>
+                <div class="contact-value">Sitges, Barcelona</div>
+            </div>
+            <div class="contact-item reveal">
+                <div class="contact-label">Email</div>
+                <div class="contact-value"><a href="mailto:info@avemariafundacio.org">info@avemariafundacio.org</a></div>
+            </div>
+            <div class="contact-item reveal">
+                <div class="contact-label">Telèfon</div>
+                <div class="contact-value"><a href="tel:+34938940950">+34 938 940 950</a></div>
+            </div>
+        </div>
+
+        <div class="social-links reveal">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">YouTube</a>
+        </div>
+    </div>
+
+    <form class="contact-form reveal">
+        <div class="form-group">
+            <input type="text" id="name" placeholder=" " required>
+            <label for="name">Nom</label>
+        </div>
+        <div class="form-group">
+            <input type="email" id="email" placeholder=" " required>
+            <label for="email">Email</label>
+        </div>
+        <div class="form-group">
+            <textarea id="message" rows="4" placeholder=" " required></textarea>
+            <label for="message">Missatge</label>
+        </div>
+        <button type="submit" class="form-submit">Enviar missatge</button>
+    </form>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 Fundació Ave Maria de Sitges. Tots els drets reservats.</p>
+    <p>Entitat sense ànim de lucre · <a href="#">Avís legal</a> · <a href="#">Privacitat</a></p>
+</footer>
+
+<script>
+    // Loader
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.querySelector('.loader').classList.add('hidden');
+            animateHero();
+        }, 1500);
+    });
+
+    // Hero animations
+    function animateHero() {
+        const elements = ['.hero-subtitle', '.hero-title', '.hero-tagline', '.hero-cta'];
+        elements.forEach((el, i) => {
+            setTimeout(() => {
+                document.querySelector(el).style.cssText = 'opacity:1;transform:translateY(0);transition:all 1s cubic-bezier(0.4,0,0.2,1)';
+            }, i * 200);
+        });
+    }
+
+    // Custom cursor
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button, .service-card').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+
+    function checkReveal() {
+        reveals.forEach(el => {
+            const windowHeight = window.innerHeight;
+            const elementTop = el.getBoundingClientRect().top;
+            const revealPoint = 150;
+
+            if (elementTop < windowHeight - revealPoint) {
+                el.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', checkReveal);
+    checkReveal();
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Parallax effect on hero
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero-bg');
+        if (hero) {
+            hero.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
+        }
+    });
+
+    // Form submit
+    document.querySelector('.contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Gràcies pel teu missatge! Ens posarem en contacte aviat.');
+    });
+</script>
+
+</body>
+</html>
