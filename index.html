@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundació Ave Maria de Sitges</title>
+    <title>Fundación Ave Maria de Sitges</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -103,12 +103,6 @@
             letter-spacing: 2px;
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
         .nav-links {
             display: flex;
             gap: 40px;
@@ -139,45 +133,6 @@
 
         .nav-links a:hover::after {
             width: 100%;
-        }
-
-        /* Language Switcher */
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        .lang-btn {
-            color: white;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 5px 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s var(--transition);
-            opacity: 0.5;
-        }
-
-        .lang-btn:hover {
-            opacity: 0.8;
-        }
-
-        .lang-btn.active {
-            opacity: 1;
-            color: var(--gold);
-        }
-
-        .lang-divider {
-            color: rgba(255, 255, 255, 0.3);
-            font-weight: 300;
         }
 
         /* Hero */
@@ -747,7 +702,6 @@
             .about { grid-template-columns: 1fr; gap: 60px; }
             .services-grid { grid-template-columns: 1fr; }
             .contact { grid-template-columns: 1fr; }
-            .nav-right { gap: 30px; }
         }
 
         @media (max-width: 768px) {
@@ -757,11 +711,6 @@
             .collab-options { flex-direction: column; align-items: center; }
             footer { flex-direction: column; gap: 20px; text-align: center; }
             .cursor { display: none; }
-            .lang-switcher {
-                position: absolute;
-                top: 20px;
-                right: 30px;
-            }
         }
     </style>
 </head>
@@ -772,35 +721,28 @@
 
 <!-- Loader -->
 <div class="loader">
-    <span class="loader-text">Fundació Ave Maria</span>
+    <span class="loader-text">Fundación Ave Maria</span>
 </div>
 
 <!-- Navigation -->
 <nav>
     <a href="#" class="logo">Ave Maria</a>
-    <div class="nav-right">
-        <ul class="nav-links">
-            <li><a href="#about" data-lang-ca="Fundació" data-lang-es="Fundación">Fundació</a></li>
-            <li><a href="#services" data-lang-ca="Serveis" data-lang-es="Servicios">Serveis</a></li>
-            <li><a href="#collaborate" data-lang-ca="Col·labora" data-lang-es="Colabora">Col·labora</a></li>
-            <li><a href="#contact" data-lang-ca="Contacta" data-lang-es="Contacto">Contacta</a></li>
-        </ul>
-        <div class="lang-switcher">
-            <button class="lang-btn active" data-lang="ca">CA</button>
-            <span class="lang-divider">|</span>
-            <button class="lang-btn" data-lang="es">ES</button>
-        </div>
-    </div>
+    <ul class="nav-links">
+        <li><a href="#about">Fundación</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#collaborate">Colabora</a></li>
+        <li><a href="#contact">Contacto</a></li>
+    </ul>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-        <span class="hero-subtitle" data-lang-ca="Des de 1987 a Sitges" data-lang-es="Desde 1987 en Sitges">Des de 1987 a Sitges</span>
-        <h1 class="hero-title" data-lang-ca="Cuidem amb passió.<br>Donem suport amb compromís." data-lang-es="Cuidamos con pasión.<br>Damos apoyo con compromiso.">Cuidem amb passió.<br>Donem suport amb compromís.</h1>
-        <p class="hero-tagline" data-lang-ca="Al servei de les persones amb diversitat funcional, oferint acompanyament i atenció centrada en la persona." data-lang-es="Al servicio de las personas con diversidad funcional, ofreciendo acompañamiento y atención centrada en la persona.">Al servei de les persones amb diversitat funcional, oferint acompanyament i atenció centrada en la persona.</p>
-        <a href="#collaborate" class="hero-cta" data-lang-ca="Col·labora amb nosaltres" data-lang-es="Colabora con nosotros">Col·labora amb nosaltres</a>
+        <span class="hero-subtitle">Desde 1987 en Sitges</span>
+        <h1 class="hero-title">Cuidamos con pasión.<br>Damos apoyo con compromiso.</h1>
+        <p class="hero-tagline">Al servicio de las personas con diversidad funcional, ofreciendo acompañamiento y atención centrada en la persona.</p>
+        <a href="#collaborate" class="hero-cta">Colabora con nosotros</a>
     </div>
     <div class="scroll-indicator">
         <span>Scroll</span>
@@ -811,101 +753,101 @@
 <!-- About -->
 <section id="about" class="about">
     <div class="about-content">
-        <span class="section-label reveal" data-lang-ca="Qui som" data-lang-es="Quiénes somos">Qui som</span>
-        <h2 class="section-title reveal" data-lang-ca="Una fundació compromesa amb les persones" data-lang-es="Una fundación comprometida con las personas">Una fundació compromesa amb les persones</h2>
-        <p class="section-text reveal" data-lang-ca="La Fundació Ave Maria és una entitat sense ànim de lucre que treballa per millorar la qualitat de vida de les persones amb diversitat funcional, oferint suports personalitzats i acompanyament al llarg de totes les etapes de la seva vida." data-lang-es="La Fundación Ave Maria es una entidad sin ánimo de lucro que trabaja para mejorar la calidad de vida de las personas con diversidad funcional, ofreciendo apoyos personalizados y acompañamiento a lo largo de todas las etapas de su vida.">La Fundació Ave Maria és una entitat sense ànim de lucre que treballa per millorar la qualitat de vida de les persones amb diversitat funcional, oferint suports personalitzats i acompanyament al llarg de totes les etapes de la seva vida.</p>
-        <p class="section-text reveal" style="margin-top:20px;" data-lang-ca="Treballem des d'un model d'atenció centrada en la persona, respectant la seva identitat, decisions i ritme." data-lang-es="Trabajamos desde un modelo de atención centrada en la persona, respetando su identidad, decisiones y ritmo.">Treballem des d'un model d'atenció centrada en la persona, respectant la seva identitat, decisions i ritme.</p>
+        <span class="section-label reveal">Quiénes somos</span>
+        <h2 class="section-title reveal">Una fundación comprometida con las personas</h2>
+        <p class="section-text reveal">La Fundación Ave Maria es una entidad sin ánimo de lucro que trabaja para mejorar la calidad de vida de las personas con diversidad funcional, ofreciendo apoyos personalizados y acompañamiento a lo largo de todas las etapas de su vida.</p>
+        <p class="section-text reveal" style="margin-top:20px;">Trabajamos desde un modelo de atención centrada en la persona, respetando su identidad, decisiones y ritmo.</p>
 
         <div class="stats reveal">
             <div class="stat">
                 <div class="stat-number">+35</div>
-                <div class="stat-label" data-lang-ca="Anys d'experiència" data-lang-es="Años de experiencia">Anys d'experiència</div>
+                <div class="stat-label">Años de experiencia</div>
             </div>
             <div class="stat">
                 <div class="stat-number">+800</div>
-                <div class="stat-label" data-lang-ca="Persones ateses" data-lang-es="Personas atendidas">Persones ateses</div>
+                <div class="stat-label">Personas atendidas</div>
             </div>
             <div class="stat">
                 <div class="stat-number">3.000</div>
-                <div class="stat-label" data-lang-ca="m² de campus" data-lang-es="m² de campus">m² de campus</div>
+                <div class="stat-label">m² de campus</div>
             </div>
         </div>
     </div>
     <div class="about-image reveal">
-        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800" alt="Fundació Ave Maria">
+        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800" alt="Fundación Ave Maria">
     </div>
 </section>
 
 <!-- Services -->
 <section id="services" class="services">
-    <span class="section-label reveal" data-lang-ca="Els nostres serveis" data-lang-es="Nuestros servicios">Els nostres serveis</span>
-    <h2 class="section-title reveal" data-lang-ca="Acompanyament integral<br>al llarg de la vida" data-lang-es="Acompañamiento integral<br>a lo largo de la vida">Acompanyament integral<br>al llarg de la vida</h2>
+    <span class="section-label reveal">Nuestros servicios</span>
+    <h2 class="section-title reveal">Acompañamiento integral<br>a lo largo de la vida</h2>
 
     <div class="services-grid">
         <div class="service-card reveal">
             <div class="service-number">01</div>
-            <h3 class="service-title" data-lang-ca="Campus Residencial" data-lang-es="Campus Residencial">Campus Residencial</h3>
-            <p class="service-text" data-lang-ca="Més de 3.000 m² a Sitges amb atenció integral i continuada 24h, en un entorn segur, accessible i adaptat." data-lang-es="Más de 3.000 m² en Sitges con atención integral y continuada 24h, en un entorno seguro, accesible y adaptado.">Més de 3.000 m² a Sitges amb atenció integral i continuada 24h, en un entorn segur, accessible i adaptat.</p>
+            <h3 class="service-title">Campus Residencial</h3>
+            <p class="service-text">Más de 3.000 m² en Sitges con atención integral y continuada 24h, en un entorno seguro, accesible y adaptado.</p>
         </div>
         <div class="service-card reveal">
             <div class="service-number">02</div>
-            <h3 class="service-title" data-lang-ca="Llars amb Suport" data-lang-es="Hogares con Apoyo">Llars amb Suport</h3>
-            <p class="service-text" data-lang-ca="Xarxa de vivendes integrades a la comunitat per a persones adultes amb discapacitat intel·lectual." data-lang-es="Red de viviendas integradas en la comunidad para personas adultas con discapacidad intelectual.">Xarxa de vivendes integrades a la comunitat per a persones adultes amb discapacitat intel·lectual.</p>
+            <h3 class="service-title">Hogares con Apoyo</h3>
+            <p class="service-text">Red de viviendas integradas en la comunidad para personas adultas con discapacidad intelectual.</p>
         </div>
         <div class="service-card reveal">
             <div class="service-number">03</div>
-            <h3 class="service-title" data-lang-ca="Atenció Domiciliària" data-lang-es="Atención Domiciliaria">Atenció Domiciliària</h3>
-            <p class="service-text" data-lang-ca="Suport a la llar de la persona amb activitats de vida diària i acompanyament personal." data-lang-es="Apoyo en el hogar de la persona con actividades de vida diaria y acompañamiento personal.">Suport a la llar de la persona amb activitats de vida diària i acompanyament personal.</p>
+            <h3 class="service-title">Atención Domiciliaria</h3>
+            <p class="service-text">Apoyo en el hogar de la persona con actividades de vida diaria y acompañamiento personal.</p>
         </div>
         <div class="service-card reveal">
             <div class="service-number">04</div>
-            <h3 class="service-title" data-lang-ca="Inclusió Laboral" data-lang-es="Inclusión Laboral">Inclusió Laboral</h3>
-            <p class="service-text" data-lang-ca="Programes d'orientació, formació i acompanyament per a la inserció laboral en entorns ordinaris." data-lang-es="Programas de orientación, formación y acompañamiento para la inserción laboral en entornos ordinarios.">Programes d'orientació, formació i acompanyament per a la inserció laboral en entorns ordinaris.</p>
+            <h3 class="service-title">Inclusión Laboral</h3>
+            <p class="service-text">Programas de orientación, formación y acompañamiento para la inserción laboral en entornos ordinarios.</p>
         </div>
         <div class="service-card reveal">
             <div class="service-number">05</div>
-            <h3 class="service-title" data-lang-ca="Formació" data-lang-es="Formación">Formació</h3>
-            <p class="service-text" data-lang-ca="Programes formatius per a persones amb diversitat funcional, professionals i famílies." data-lang-es="Programas formativos para personas con diversidad funcional, profesionales y familias.">Programes formatius per a persones amb diversitat funcional, professionals i famílies.</p>
+            <h3 class="service-title">Formación</h3>
+            <p class="service-text">Programas formativos para personas con diversidad funcional, profesionales y familias.</p>
         </div>
         <div class="service-card reveal">
             <div class="service-number">06</div>
-            <h3 class="service-title" data-lang-ca="Investigació i Robòtica" data-lang-es="Investigación y Robótica">Investigació i Robòtica</h3>
-            <p class="service-text" data-lang-ca="Innovació i tecnologia al servei de l'autonomia, en col·laboració amb universitats." data-lang-es="Innovación y tecnología al servicio de la autonomía, en colaboración con universidades.">Innovació i tecnologia al servei de l'autonomia, en col·laboració amb universitats.</p>
+            <h3 class="service-title">Investigación y Robótica</h3>
+            <p class="service-text">Innovación y tecnología al servicio de la autonomía, en colaboración con universidades.</p>
         </div>
     </div>
 </section>
 
 <!-- Marquee -->
 <div class="marquee">
-    <div class="marquee-content" id="marquee-content">
-        <span class="marquee-item" data-lang-ca="Respecte <span>·</span> Compromís <span>·</span> Inclusió <span>·</span> Professionalitat <span>·</span> Transparència <span>·</span>" data-lang-es="Respeto <span>·</span> Compromiso <span>·</span> Inclusión <span>·</span> Profesionalidad <span>·</span> Transparencia <span>·</span>">Respecte <span>·</span> Compromís <span>·</span> Inclusió <span>·</span> Professionalitat <span>·</span> Transparència <span>·</span></span>
-        <span class="marquee-item" data-lang-ca="Respecte <span>·</span> Compromís <span>·</span> Inclusió <span>·</span> Professionalitat <span>·</span> Transparència <span>·</span>" data-lang-es="Respeto <span>·</span> Compromiso <span>·</span> Inclusión <span>·</span> Profesionalidad <span>·</span> Transparencia <span>·</span>">Respecte <span>·</span> Compromís <span>·</span> Inclusió <span>·</span> Professionalitat <span>·</span> Transparència <span>·</span></span>
+    <div class="marquee-content">
+        <span class="marquee-item">Respeto <span>·</span> Compromiso <span>·</span> Inclusión <span>·</span> Profesionalidad <span>·</span> Transparencia <span>·</span></span>
+        <span class="marquee-item">Respeto <span>·</span> Compromiso <span>·</span> Inclusión <span>·</span> Profesionalidad <span>·</span> Transparencia <span>·</span></span>
     </div>
 </div>
 
 <!-- Collaborate -->
 <section id="collaborate" class="collaborate">
-    <span class="section-label reveal" data-lang-ca="Col·labora" data-lang-es="Colabora">Col·labora</span>
-    <h2 class="section-title reveal" data-lang-ca="Junts podem fer<br>la diferència" data-lang-es="Juntos podemos hacer<br>la diferencia">Junts podem fer<br>la diferència</h2>
-    <p class="section-text reveal" style="max-width:600px;margin:0 auto;" data-lang-ca="Cada aportació té un impacte real en la vida de les persones amb diversitat funcional. Hi ha moltes maneres de col·laborar." data-lang-es="Cada aportación tiene un impacto real en la vida de las personas con diversidad funcional. Hay muchas maneras de colaborar.">Cada aportació té un impacte real en la vida de les persones amb diversitat funcional. Hi ha moltes maneres de col·laborar.</p>
+    <span class="section-label reveal">Colabora</span>
+    <h2 class="section-title reveal">Juntos podemos hacer<br>la diferencia</h2>
+    <p class="section-text reveal" style="max-width:600px;margin:0 auto;">Cada aportación tiene un impacto real en la vida de las personas con diversidad funcional. Hay muchas maneras de colaborar.</p>
 
     <div class="collab-options reveal">
-        <a href="#contact" class="collab-btn primary" data-lang-ca="Fer un donatiu" data-lang-es="Hacer un donativo">Fer un donatiu</a>
-        <a href="#contact" class="collab-btn" data-lang-ca="Voluntariat" data-lang-es="Voluntariado">Voluntariat</a>
-        <a href="#contact" class="collab-btn" data-lang-ca="Empreses i RSC" data-lang-es="Empresas y RSC">Empreses i RSC</a>
-        <a href="#contact" class="collab-btn" data-lang-ca="Mecenatge" data-lang-es="Mecenazgo">Mecenatge</a>
+        <a href="#contact" class="collab-btn primary">Hacer un donativo</a>
+        <a href="#contact" class="collab-btn">Voluntariado</a>
+        <a href="#contact" class="collab-btn">Empresas y RSC</a>
+        <a href="#contact" class="collab-btn">Mecenazgo</a>
     </div>
 </section>
 
 <!-- Contact -->
 <section id="contact" class="contact">
     <div>
-        <span class="section-label reveal" data-lang-ca="Contacta" data-lang-es="Contacto">Contacta</span>
-        <h2 class="section-title reveal" data-lang-ca="Parlem?" data-lang-es="¿Hablamos?">Parlem?</h2>
+        <span class="section-label reveal">Contacto</span>
+        <h2 class="section-title reveal">¿Hablamos?</h2>
 
         <div class="contact-info">
             <div class="contact-item reveal">
-                <div class="contact-label" data-lang-ca="Adreça" data-lang-es="Dirección">Adreça</div>
+                <div class="contact-label">Dirección</div>
                 <div class="contact-value">Sitges, Barcelona</div>
             </div>
             <div class="contact-item reveal">
@@ -913,7 +855,7 @@
                 <div class="contact-value"><a href="mailto:info@avemariafundacio.org">info@avemariafundacio.org</a></div>
             </div>
             <div class="contact-item reveal">
-                <div class="contact-label" data-lang-ca="Telèfon" data-lang-es="Teléfono">Telèfon</div>
+                <div class="contact-label">Teléfono</div>
                 <div class="contact-value"><a href="tel:+34938940950">+34 938 940 950</a></div>
             </div>
         </div>
@@ -929,7 +871,7 @@
     <form class="contact-form reveal">
         <div class="form-group">
             <input type="text" id="name" placeholder=" " required>
-            <label for="name" data-lang-ca="Nom" data-lang-es="Nombre">Nom</label>
+            <label for="name">Nombre</label>
         </div>
         <div class="form-group">
             <input type="email" id="email" placeholder=" " required>
@@ -937,59 +879,19 @@
         </div>
         <div class="form-group">
             <textarea id="message" rows="4" placeholder=" " required></textarea>
-            <label for="message" data-lang-ca="Missatge" data-lang-es="Mensaje">Missatge</label>
+            <label for="message">Mensaje</label>
         </div>
-        <button type="submit" class="form-submit" data-lang-ca="Enviar missatge" data-lang-es="Enviar mensaje">Enviar missatge</button>
+        <button type="submit" class="form-submit">Enviar mensaje</button>
     </form>
 </section>
 
 <!-- Footer -->
 <footer>
-    <p data-lang-ca="© 2026 Fundació Ave Maria de Sitges. Tots els drets reservats." data-lang-es="© 2026 Fundación Ave Maria de Sitges. Todos los derechos reservados.">© 2026 Fundació Ave Maria de Sitges. Tots els drets reservats.</p>
-    <p><span data-lang-ca="Entitat sense ànim de lucre" data-lang-es="Entidad sin ánimo de lucro">Entitat sense ànim de lucre</span> · <a href="#" data-lang-ca="Avís legal" data-lang-es="Aviso legal">Avís legal</a> · <a href="#" data-lang-ca="Privacitat" data-lang-es="Privacidad">Privacitat</a></p>
+    <p>© 2026 Fundación Ave Maria de Sitges. Todos los derechos reservados.</p>
+    <p>Entidad sin ánimo de lucro · <a href="#">Aviso legal</a> · <a href="#">Privacidad</a></p>
 </footer>
 
 <script>
-    // Language System
-    let currentLang = 'ca';
-
-    function setLanguage(lang) {
-        currentLang = lang;
-        document.documentElement.lang = lang;
-
-        // Update all elements with data-lang attributes
-        document.querySelectorAll('[data-lang-ca]').forEach(el => {
-            const text = el.getAttribute(`data-lang-${lang}`);
-            if (text) {
-                el.innerHTML = text;
-            }
-        });
-
-        // Update language buttons
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.dataset.lang === lang) {
-                btn.classList.add('active');
-            }
-        });
-
-        // Save preference
-        localStorage.setItem('preferred-lang', lang);
-    }
-
-    // Language switcher event listeners
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            setLanguage(btn.dataset.lang);
-        });
-    });
-
-    // Check for saved language preference
-    const savedLang = localStorage.getItem('preferred-lang');
-    if (savedLang && savedLang !== currentLang) {
-        setLanguage(savedLang);
-    }
-
     // Loader
     window.addEventListener('load', () => {
         setTimeout(() => {
@@ -1049,10 +951,9 @@
         });
     });
 
-    // Parallax effect on hero (limited to hero viewport)
+    // Parallax effect on hero
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
-        const heroSection = document.querySelector('.hero');
         const hero = document.querySelector('.hero-bg');
         if (hero && scrolled < window.innerHeight) {
             hero.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
@@ -1062,10 +963,7 @@
     // Form submit
     document.querySelector('.contact-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const message = currentLang === 'ca'
-            ? 'Gràcies pel teu missatge! Ens posarem en contacte aviat.'
-            : '¡Gracias por tu mensaje! Nos pondremos en contacto pronto.';
-        alert(message);
+        alert('¡Gracias por tu mensaje! Nos pondremos en contacto pronto.');
     });
 </script>
 
